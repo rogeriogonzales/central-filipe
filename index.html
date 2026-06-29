@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Central do Filipe</title>
+<style>
+:root{--bg:#0d0f14;--card:#161a22;--card2:#1d222c;--ink:#e8ecf3;--mut:#9aa6b8;--ac:#e23b3b;--gold:#e0a13b;--grn:#27a866;--blu:#3b82e6;--wa:#25d366}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;-webkit-text-size-adjust:100%}
+header{position:sticky;top:0;background:#0d0f14ee;backdrop-filter:blur(6px);border-bottom:1px solid #232a35;z-index:10}
+.hd{max-width:760px;margin:0 auto;padding:12px 14px}
+h1{font-size:19px;margin:0}.sub{color:var(--mut);font-size:12px}
+nav{display:flex;gap:6px;max-width:760px;margin:8px auto 0;padding:0 14px}
+nav button{flex:1;background:var(--card2);border:1px solid #2a313d;color:var(--mut);border-radius:9px 9px 0 0;padding:9px 6px;font-size:13px;font-weight:600;cursor:pointer}
+nav button.on{background:var(--card);color:var(--ink);border-bottom-color:var(--card)}
+main{max-width:760px;margin:0 auto;padding:14px}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+select,input,textarea{background:var(--card2);border:1px solid #2a313d;color:var(--ink);border-radius:8px;padding:8px;font-size:14px;font-family:inherit}
+.card{background:var(--card);border:1px solid #232a35;border-radius:13px;padding:0;margin-bottom:12px;overflow:hidden}
+.ph{height:150px;background:#20262f center/cover no-repeat;position:relative}
+.ph .pr{position:absolute;left:10px;bottom:10px;background:#000a;padding:4px 10px;border-radius:8px;font-weight:800;font-size:16px}
+.ph .vf{position:absolute;right:10px;top:10px;background:var(--grn);color:#08130c;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.bd{padding:12px 14px}
+.loc{font-weight:700}.meta{color:var(--mut);font-size:13px;margin:2px 0 6px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.tag{background:#20262f;border-radius:6px;padding:2px 8px;font-size:11px;color:var(--mut)}
+.tag.d{background:#13351f;color:#5fd999}.tag.l{background:#1c2740;color:#83a9e6}
+.btns{display:flex;gap:8px}
+.btn{flex:1;border:0;border-radius:9px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:block}
+.btn.wa{background:var(--wa);color:#06250f}.btn.crm{background:var(--card2);color:var(--ink);border:1px solid #2a313d}.btn.lk{background:var(--card2);color:var(--blu);border:1px solid #2a313d}
+.kanban{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{min-width:200px;flex:0 0 auto;background:var(--card);border:1px solid #232a35;border-radius:11px;padding:8px}
+.col h3{font-size:12px;margin:2px 4px 8px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.lead{background:var(--card2);border:1px solid #2a313d;border-radius:8px;padding:8px;margin-bottom:7px;font-size:13px}
+.lead b{display:block}.lead .li{color:var(--mut);font-size:12px}
+.lead .mv{display:flex;gap:4px;margin-top:6px}
+.lead .mv button{background:#11151c;border:1px solid #2a313d;color:var(--mut);border-radius:6px;padding:3px 7px;font-size:14px;cursor:pointer;line-height:1}
+.add{background:var(--card);border:1px solid #232a35;border-radius:11px;padding:12px;margin-bottom:14px;display:grid;gap:8px}
+.add .row{display:flex;gap:8px}.add .row>*{flex:1}
+.rep{background:var(--card);border:1px solid #232a35;border-radius:11px;padding:12px 14px;margin-bottom:12px}
+.rep h3{margin:0 0 6px;font-size:14px}.rep p{margin:0 0 8px;color:var(--mut);font-size:13px;white-space:pre-wrap}
+.cp{background:var(--blu);border:0;color:#fff;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.empty{color:var(--mut);text-align:center;padding:30px}
+.mantra{background:linear-gradient(180deg,#241a1a,#161013);border:1px solid #3a2424;border-radius:11px;padding:12px 14px;margin-bottom:14px;color:var(--gold);font-weight:600}
+</style></head>
+<body>
+<header><div class="hd"><h1>🏠 Central do Filipe</h1><div class="sub" id="sub">carregando…</div></div>
+<nav><button class="on" data-t="op">Oportunidades</button><button data-t="crm">CRM / Funil</button><button data-t="rep">Respostas</button></nav></header>
+<main>
+<section id="op">
+  <div class="filtros">
+    <select id="f-bairro"><option value="">Todos os bairros</option></select>
+    <select id="f-lente"><option value="">Reforma + Família</option><option value="reforma">≤400k (reforma)</option><option value="familia">Alto padrão (família)</option></select>
+    <select id="f-vf"><option value="">Todos</option><option value="1">Só verificados ✓</option></select>
+  </div>
+  <div id="lista"></div>
+</section>
+<section id="crm" hidden>
+  <div class="mantra">⚡ Responda todo lead em &lt; 1 minuto. Você não precisa estar pronto — precisa estar respondendo.</div>
+  <div class="add">
+    <div class="row"><input id="l-nome" placeholder="Nome do lead"><input id="l-contato" placeholder="WhatsApp / contato"></div>
+    <input id="l-imovel" placeholder="Imóvel / bairro de interesse">
+    <button class="cp" onclick="addLead()">+ Adicionar lead</button>
+  </div>
+  <div class="kanban" id="kanban"></div>
+</section>
+<section id="rep" hidden></section>
+</main>
+<script>
+const WA="5551994570414";
+const STAGES=["Novo","Qualificado","Visita","Proposta","Fechado","Perdido"];
+const REPLIES=[
+ ["Saudação automática","Oi! Aqui é o Filipe, corretor 👋 Que bom seu contato! Já já te respondo pessoalmente. Pra adiantar: qual imóvel ou bairro te interessou?"],
+ ["3 perguntas de qualificação","1) Tá pensando em mudar pra quando — mais pra agora ou ainda olhando?\n2) Qual faixa de valor faz sentido pra você?\n3) A decisão é só sua ou tem mais alguém junto?"],
+ ["Oferecer visita","Posso te levar lá pessoalmente. Funciona melhor durante a semana ou no fim de semana? Levo a chave e te mostro tudo com calma, sem pressão."],
+ ["Follow-up (24h)","Oi! Aquele imóvel ainda tá no seu radar? Se quiser, separo 2 ou 3 alternativas na sua faixa."],
+ ["Documentos p/ proposta","Pra avançar a proposta a gente vai precisar de RG, CPF e comprovante de renda. Te explico cada passo, sem burocracia chata."]
+];
+const money=v=>v?("R$ "+(v|0).toLocaleString("pt-BR")):"—";
+const enc=encodeURIComponent;
+let DADOS={oportunidades:[]};
+
+// ---- Oportunidades ----
+function msgOportunidade(o){
+  let m=`🏠 Oportunidade em ${o.bairro}\n${o.area_m2}m²`+(o.quartos?` · ${o.quartos} dorm`:"")+` · ${money(o.preco)}`;
+  if(o.rs_m2) m+=`\n${money(o.rs_m2)}/m²`;
+  if(o.desconto&&o.desconto>0) m+=` (~${o.desconto}% abaixo do preço real de venda da região)`;
+  const x=[]; if(o.vista_livre==="livre")x.push("vista livre"); if(o.estado==="reformado")x.push("reformado"); if(o.posicao_solar)x.push("sol "+o.posicao_solar);
+  if(x.length) m+=`\n✨ ${x.join(" · ")}`;
+  m+=`\n\nQuer ver por dentro? Chama aqui que eu te mostro 👇\n${o.url}\n— Filipe, corretor (CRECI)`;
+  return m;
+}
+function card(o,i){
+  const d=document.createElement("div");d.className="card";
+  const tags=[`<span class="tag l">${o.lente==="familia"?"alto padrão":"≤400k"}</span>`];
+  if(o.desconto&&o.desconto>0)tags.push(`<span class="tag d">~${o.desconto}% abaixo ITBI</span>`);
+  if(o.quartos)tags.push(`<span class="tag">${o.quartos} dorm</span>`);
+  if(o.andar)tags.push(`<span class="tag">${o.andar}º andar</span>`);
+  if(o.vista_livre==="livre")tags.push(`<span class="tag">vista livre</span>`);
+  if(o.estado)tags.push(`<span class="tag">${o.estado}</span>`);
+  d.innerHTML=`<div class="ph" style="background-image:url('${o.foto||""}')"><span class="pr">${money(o.preco)}</span>${o.verificado?'<span class="vf">✓ Verificado IA</span>':''}</div>
+  <div class="bd"><div class="loc">${o.bairro} · ${o.area_m2}m²</div>
+  <div class="meta">${money(o.rs_m2)}/m² · ${o.fonte}</div>
+  <div class="tags">${tags.join("")}</div>
+  <div class="btns">
+    <a class="btn wa" href="https://wa.me/?text=${enc(msgOportunidade(o))}" target="_blank">📱 WhatsApp</a>
+    <button class="btn crm" onclick='addFromOpp(${JSON.stringify(JSON.stringify(o))})'>➕ CRM</button>
+    <a class="btn lk" href="${o.url}" target="_blank">anúncio ↗</a>
+  </div></div>`;
+  return d;
+}
+function renderOpps(){
+  const b=f("f-bairro").value,l=f("f-lente").value,v=f("f-vf").value;
+  const arr=DADOS.oportunidades.filter(o=>(!b||o.bairro===b)&&(!l||o.lente===l)&&(!v||o.verificado));
+  const c=f("lista");c.innerHTML="";
+  if(!arr.length){c.innerHTML='<div class="empty">Nenhuma oportunidade com esse filtro.</div>';return}
+  arr.slice(0,80).forEach((o,i)=>c.appendChild(card(o,i)));
+}
+function addFromOpp(s){const o=JSON.parse(JSON.parse(s));addLeadObj({nome:"",contato:"",imovel:`${o.bairro} ${o.area_m2}m² ${money(o.preco)}`,estagio:"Novo"});alert("Imóvel adicionado ao CRM (aba CRM) — preencha o nome do lead.")}
+
+// ---- CRM (localStorage) ----
+const LK="filipe_crm_leads";
+const leads=()=>JSON.parse(localStorage.getItem(LK)||"[]");
+const saveLeads=a=>localStorage.setItem(LK,JSON.stringify(a));
+function addLeadObj(o){const a=leads();a.push({id:Date.now()+Math.random(),criado:new Date().toISOString().slice(0,10),...o});saveLeads(a);renderCRM()}
+function addLead(){const n=f("l-nome").value.trim();if(!n){alert("Nome do lead?");return}addLeadObj({nome:n,contato:f("l-contato").value.trim(),imovel:f("l-imovel").value.trim(),estagio:"Novo"});f("l-nome").value=f("l-contato").value=f("l-imovel").value=""}
+function move(id,dir){const a=leads();const x=a.find(l=>l.id==id);if(!x)return;let i=STAGES.indexOf(x.estagio)+dir;i=Math.max(0,Math.min(STAGES.length-1,i));x.estagio=STAGES[i];saveLeads(a);renderCRM()}
+function del(id){if(!confirm("Remover lead?"))return;saveLeads(leads().filter(l=>l.id!=id));renderCRM()}
+function renderCRM(){
+  const k=f("kanban");k.innerHTML="";const a=leads();
+  STAGES.forEach(s=>{
+    const col=document.createElement("div");col.className="col";
+    const ls=a.filter(l=>l.estagio===s);
+    col.innerHTML=`<h3>${s} · ${ls.length}</h3>`;
+    ls.forEach(l=>{const c=document.createElement("div");c.className="lead";
+      c.innerHTML=`<b>${l.nome||"(sem nome)"}</b><span class="li">${l.imovel||""}${l.contato?" · "+l.contato:""}</span>
+      <div class="mv"><button onclick="move(${l.id},-1)">◀</button>${l.contato?`<a class="li" href="https://wa.me/${l.contato.replace(/\\D/g,'')}" target="_blank" style="align-self:center">wa↗</a>`:""}<button onclick="move(${l.id},1)">▶</button><button onclick="del(${l.id})" style="margin-left:auto">🗑</button></div>`;
+      col.appendChild(c)});
+    k.appendChild(col)});
+}
+// ---- Respostas ----
+function renderRep(){
+  const r=f("rep");r.innerHTML='<div class="mantra">📋 Toque em Copiar e cole no WhatsApp. Personalize o nome.</div>';
+  REPLIES.forEach(([t,txt])=>{const d=document.createElement("div");d.className="rep";
+    d.innerHTML=`<h3>${t}</h3><p>${txt}</p><button class="cp">Copiar</button>`;
+    d.querySelector("button").onclick=()=>{navigator.clipboard.writeText(txt);d.querySelector("button").textContent="Copiado ✓";setTimeout(()=>d.querySelector("button").textContent="Copiar",1500)};
+    r.appendChild(d)});
+}
+// ---- nav ----
+const f=id=>document.getElementById(id);
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+  ["op","crm","rep"].forEach(s=>f(s).hidden=(s!==b.dataset.t));
+  if(b.dataset.t==="crm")renderCRM(); if(b.dataset.t==="rep")renderRep();
+});
+["f-bairro","f-lente","f-vf"].forEach(id=>f(id).addEventListener("change",renderOpps));
+fetch("dados.json?v="+Date.now()).then(r=>r.json()).then(d=>{
+  DADOS=d;
+  f("sub").textContent=`${d.total} oportunidades · atualizado ${d.atualizado}`;
+  [...new Set(d.oportunidades.map(o=>o.bairro))].sort().forEach(b=>{const o=document.createElement("option");o.value=o.textContent=b;f("f-bairro").appendChild(o)});
+  renderOpps();
+}).catch(e=>f("lista").innerHTML='<div class="empty">Erro ao carregar dados.</div>');
+</script></body></html>
